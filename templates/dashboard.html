@@ -3,41 +3,45 @@
 {% block title %}Dashboard | ADARES CRM{% endblock %}
 
 {% block content %}
-<section class="dashboard-hero mb-4">
-    <div>
-        <p class="eyebrow mb-2">Gig worker command center</p>
-        <h1 class="h2 mb-2">Dashboard</h1>
-        <p class="mb-0">Track income, expenses, clients, invoices, tax estimates, reports, backups, notifications, and audit activity from one place.</p>
+<section class="dashboard-intro mb-4">
+    <div class="row align-items-center g-3">
+        <div class="col-lg-8">
+            <h2 class="h4 mb-2">Business snapshot</h2>
+            <p class="mb-0">A starting dashboard shell for tracking gig income, expenses, profit, and estimated tax.</p>
+        </div>
+        <div class="col-lg-4 text-lg-end">
+            <span class="status-pill">Frontend shell</span>
+        </div>
     </div>
 </section>
 
 <section class="row g-3">
     <div class="col-md-6 col-xl-3">
-        <div class="summary-card">
-            <span>Income</span>
+        <div class="metric-card">
+            <span>Total Income</span>
             <strong>R0.00</strong>
-            <small>Ready for finance setup</small>
+            <small>No income records yet</small>
         </div>
     </div>
     <div class="col-md-6 col-xl-3">
-        <div class="summary-card">
-            <span>Expenses</span>
+        <div class="metric-card">
+            <span>Total Expenses</span>
             <strong>R0.00</strong>
-            <small>Ready for expense capture</small>
+            <small>No expense records yet</small>
         </div>
     </div>
     <div class="col-md-6 col-xl-3">
-        <div class="summary-card">
-            <span>Clients</span>
-            <strong>0</strong>
-            <small>CRM module pending</small>
+        <div class="metric-card">
+            <span>Net Profit</span>
+            <strong>R0.00</strong>
+            <small>Income minus expenses</small>
         </div>
     </div>
     <div class="col-md-6 col-xl-3">
-        <div class="summary-card">
-            <span>Invoices</span>
-            <strong>0</strong>
-            <small>Invoicing module pending</small>
+        <div class="metric-card">
+            <span>Estimated Tax</span>
+            <strong>R0.00</strong>
+            <small>Estimate only</small>
         </div>
     </div>
 </section>
