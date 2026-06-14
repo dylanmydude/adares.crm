@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard | ADARES CRM{% endblock %}
+
+{% block content %}
+<section class="dashboard-hero mb-4">
+    <div>
+        <p class="eyebrow mb-2">Gig worker command center</p>
+        <h1 class="h2 mb-2">Dashboard</h1>
+        <p class="mb-0">Track income, expenses, clients, invoices, tax estimates, reports, backups, notifications, and audit activity from one place.</p>
+    </div>
+</section>
+
+<section class="row g-3">
+    <div class="col-md-6 col-xl-3">
+        <div class="summary-card">
+            <span>Income</span>
+            <strong>R0.00</strong>
+            <small>Ready for finance setup</small>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="summary-card">
+            <span>Expenses</span>
+            <strong>R0.00</strong>
+            <small>Ready for expense capture</small>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="summary-card">
+            <span>Clients</span>
+            <strong>0</strong>
+            <small>CRM module pending</small>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="summary-card">
+            <span>Invoices</span>
+            <strong>0</strong>
+            <small>Invoicing module pending</small>
+        </div>
+    </div>
+</section>
+{% endblock %}

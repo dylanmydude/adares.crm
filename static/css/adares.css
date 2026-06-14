@@ -1,0 +1,74 @@
+:root {
+    --adares-black: #000000;
+    --adares-green: #10564f;
+    --adares-blue: #04345c;
+    --adares-sky: #38b6ff;
+    --adares-paper: #f2f1ec;
+}
+
+body {
+    background: var(--adares-paper);
+    color: var(--adares-black);
+}
+
+.adares-navbar {
+    background: var(--adares-blue);
+}
+
+.adares-navbar .navbar-brand,
+.adares-navbar .nav-link {
+    color: #ffffff;
+}
+
+.adares-navbar .nav-link:hover,
+.adares-navbar .nav-link:focus {
+    color: var(--adares-sky);
+}
+
+.navbar-toggler {
+    border-color: rgba(255, 255, 255, 0.45);
+}
+
+.navbar-toggler-icon {
+    filter: invert(1);
+}
+
+.dashboard-hero {
+    background: var(--adares-green);
+    border-radius: 8px;
+    color: #ffffff;
+    padding: 2rem;
+}
+
+.eyebrow {
+    color: var(--adares-sky);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0;
+    text-transform: uppercase;
+}
+
+.summary-card {
+    background: #ffffff;
+    border: 1px solid rgba(4, 52, 92, 0.12);
+    border-radius: 8px;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.04);
+    display: grid;
+    gap: 0.45rem;
+    min-height: 150px;
+    padding: 1.25rem;
+}
+
+.summary-card span {
+    color: var(--adares-green);
+    font-weight: 700;
+}
+
+.summary-card strong {
+    color: var(--adares-blue);
+    font-size: 1.8rem;
+}
+
+.summary-card small {
+    color: #5f666f;
+}
