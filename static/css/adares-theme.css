@@ -132,14 +132,26 @@ body {
 }
 
 .dashboard-intro,
-.metric-card {
+.metric-card,
+.page-panel,
+.table-panel,
+.form-panel {
     background: var(--adares-panel);
     border: 1px solid var(--adares-border);
     border-radius: 8px;
 }
 
-.dashboard-intro {
+.dashboard-intro,
+.page-panel,
+.form-panel {
     padding: 1.5rem;
+}
+
+.page-panel {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
 }
 
 .dashboard-intro p,
@@ -173,6 +185,49 @@ body {
 .metric-card strong {
     color: var(--adares-off-white);
     font-size: 1.9rem;
+}
+
+.table-panel {
+    overflow: hidden;
+}
+
+.adares-table {
+    --bs-table-bg: transparent;
+    --bs-table-color: var(--adares-off-white);
+    --bs-table-border-color: rgba(56, 182, 255, 0.16);
+    margin-bottom: 0;
+}
+
+.adares-table thead th {
+    color: var(--adares-blue);
+    font-size: 0.78rem;
+    letter-spacing: 0;
+    text-transform: uppercase;
+}
+
+.form-panel {
+    max-width: 720px;
+}
+
+.form-panel .form-label {
+    color: var(--adares-off-white);
+    font-weight: 700;
+}
+
+.form-panel input,
+.form-panel textarea {
+    background: #021523;
+    border: 1px solid rgba(56, 182, 255, 0.28);
+    border-radius: 8px;
+    color: var(--adares-off-white);
+}
+
+.form-panel input:focus,
+.form-panel textarea:focus {
+    background: #021523;
+    border-color: var(--adares-blue);
+    box-shadow: 0 0 0 0.2rem rgba(56, 182, 255, 0.16);
+    color: var(--adares-off-white);
 }
 
 .auth-panel {

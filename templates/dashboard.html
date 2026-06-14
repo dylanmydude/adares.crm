@@ -19,29 +19,29 @@
     <div class="col-md-6 col-xl-3">
         <div class="metric-card">
             <span>Total Income</span>
-            <strong>R0.00</strong>
-            <small>No income records yet</small>
+            <strong>R{{ total_income|floatformat:2 }}</strong>
+            <small>Recorded income total</small>
         </div>
     </div>
     <div class="col-md-6 col-xl-3">
         <div class="metric-card">
             <span>Total Expenses</span>
-            <strong>R0.00</strong>
-            <small>No expense records yet</small>
+            <strong>R{{ total_expenses|floatformat:2 }}</strong>
+            <small>Recorded expense total</small>
         </div>
     </div>
     <div class="col-md-6 col-xl-3">
         <div class="metric-card">
             <span>Net Profit</span>
-            <strong>R0.00</strong>
+            <strong>R{{ net_profit|floatformat:2 }}</strong>
             <small>Income minus expenses</small>
         </div>
     </div>
     <div class="col-md-6 col-xl-3">
         <div class="metric-card">
             <span>Estimated Tax</span>
-            <strong>R0.00</strong>
-            <small>Estimate only</small>
+            <strong>R{{ estimated_tax|floatformat:2 }}</strong>
+            <small>Placeholder at 20% of profit</small>
         </div>
     </div>
 </section>

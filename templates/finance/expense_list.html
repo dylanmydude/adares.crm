@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}Expenses | ADARES CRM{% endblock %}
+
+{% block content %}
+<section class="page-panel mb-3">
+    <div>
+        <p class="eyebrow mb-2">Finance</p>
+        <h2 class="h4 mb-0">Expenses</h2>
+    </div>
+    <a class="btn btn-primary" href="{% url 'expense_create' %}">
+        <i class="bi bi-plus-circle"></i>
+        <span>Add Expense</span>
+    </a>
+</section>
+
+<section class="table-panel">
+    <div class="table-responsive">
+        <table class="table adares-table align-middle mb-0">
+            <thead>
+                <tr>
+                    <th>Category</th>
+                    <th>Amount</th>
+                    <th>Date Paid</th>
+                    <th>Description</th>
+                    <th class="text-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for expense in expenses %}
+                    <tr>
+                        <td>{{ expense.category.name }}</td>
+                        <td>R{{ expense.amount|floatformat:2 }}</td>
+                        <td>{{ expense.date_paid }}</td>
+                        <td>{{ expense.description|default:'-' }}</td>
+                        <td class="text-end">
+                            <a class="btn btn-outline-light btn-sm" href="{% url 'expense_edit' expense.pk %}">Edit</a>
+                            <form class="d-inline" method="post" action="{% url 'expense_delete' expense.pk %}">
+                                {% csrf_token %}
+                                <button class="btn btn-danger btn-sm" type="submit">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="5">No expense records yet.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}

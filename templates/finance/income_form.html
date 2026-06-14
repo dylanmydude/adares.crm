@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }} | ADARES CRM{% endblock %}
+
+{% block content %}
+<section class="form-panel">
+    <p class="eyebrow mb-2">Finance</p>
+    <h2 class="h4 mb-3">{{ title }}</h2>
+    <form method="post" novalidate>
+        {% csrf_token %}
+        {% include 'finance/partials/form_fields.html' %}
+        <div class="d-flex gap-2">
+            <button class="btn btn-primary" type="submit">Save Income</button>
+            <a class="btn btn-outline-light" href="{% url 'income_list' %}">Cancel</a>
+        </div>
+    </form>
+</section>
+{% endblock %}
