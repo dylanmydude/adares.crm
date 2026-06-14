@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}Login | ADARES CRM{% endblock %}
+
+{% block content %}
+<section class="auth-panel">
+    <div class="auth-card">
+        <p class="eyebrow mb-2">Secure access</p>
+        <h2 class="h4 mb-3">Log in to ADARES CRM</h2>
+        <form method="post" novalidate>
+            {% csrf_token %}
+            {% include 'accounts/partials/form_errors.html' %}
+            <div class="mb-3">
+                <label class="form-label" for="{{ form.username.id_for_label }}">Username</label>
+                {{ form.username }}
+                {% include 'accounts/partials/field_errors.html' with field=form.username %}
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="{{ form.password.id_for_label }}">Password</label>
+                {{ form.password }}
+                {% include 'accounts/partials/field_errors.html' with field=form.password %}
+            </div>
+            <button class="btn btn-primary w-100" type="submit">Log in</button>
+        </form>
+        <p class="auth-switch mb-0 mt-3">Need an account? <a href="{% url 'register' %}">Register</a>.</p>
+    </div>
+</section>
+{% endblock %}

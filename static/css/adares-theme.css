@@ -175,6 +175,61 @@ body {
     font-size: 1.9rem;
 }
 
+.auth-panel {
+    display: grid;
+    min-height: calc(100vh - 136px);
+    place-items: center;
+}
+
+.auth-card {
+    background: var(--adares-panel);
+    border: 1px solid var(--adares-border);
+    border-radius: 8px;
+    max-width: 460px;
+    padding: 1.5rem;
+    width: 100%;
+}
+
+.auth-card .form-label {
+    color: var(--adares-off-white);
+    font-weight: 700;
+}
+
+.auth-card input {
+    background: #021523;
+    border: 1px solid rgba(56, 182, 255, 0.28);
+    border-radius: 8px;
+    color: var(--adares-off-white);
+    display: block;
+    padding: 0.7rem 0.85rem;
+    width: 100%;
+}
+
+.auth-card input:focus {
+    border-color: var(--adares-blue);
+    box-shadow: 0 0 0 0.2rem rgba(56, 182, 255, 0.16);
+    outline: 0;
+}
+
+.auth-switch,
+.auth-switch a {
+    color: rgba(242, 241, 236, 0.78);
+}
+
+.auth-switch a {
+    color: var(--adares-blue);
+    font-weight: 700;
+}
+
+.field-errors,
+.errorlist {
+    color: #ffb4b4;
+    font-size: 0.88rem;
+    list-style: none;
+    margin: 0.35rem 0 0;
+    padding: 0;
+}
+
 @media (max-width: 991.98px) {
     .app-shell {
         display: block;

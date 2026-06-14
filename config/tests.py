@@ -1,9 +1,16 @@
-from django.test import SimpleTestCase
+from django.contrib.auth import get_user_model
+from django.test import TestCase
 from django.urls import reverse
 
 
-class DashboardShellTests(SimpleTestCase):
+class DashboardShellTests(TestCase):
     def test_dashboard_loads_frontend_shell(self):
+        user = get_user_model().objects.create_user(
+            username='dashboard_user',
+            password='StrongPass123!',
+        )
+        self.client.force_login(user)
+
         response = self.client.get(reverse('dashboard'))
 
         self.assertEqual(response.status_code, 200)

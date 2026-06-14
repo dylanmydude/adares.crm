@@ -4,13 +4,24 @@
         <h1 class="page-title mb-0">{% block page_heading %}Dashboard{% endblock %}</h1>
     </div>
     <div class="navbar-actions">
-        <button class="btn btn-outline-light btn-sm" type="button">
-            <i class="bi bi-bell"></i>
-            <span>Notifications</span>
-        </button>
-        <button class="btn btn-primary btn-sm" type="button">
-            <i class="bi bi-plus-circle"></i>
-            <span>Quick Add</span>
-        </button>
+        {% if request.user.is_authenticated %}
+            <a class="btn btn-outline-light btn-sm" href="{% url 'profile' %}">
+                <i class="bi bi-person-circle"></i>
+                <span>Profile</span>
+            </a>
+            <a class="btn btn-primary btn-sm" href="{% url 'logout' %}">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Logout</span>
+            </a>
+        {% else %}
+            <a class="btn btn-outline-light btn-sm" href="{% url 'login' %}">
+                <i class="bi bi-box-arrow-in-right"></i>
+                <span>Login</span>
+            </a>
+            <a class="btn btn-primary btn-sm" href="{% url 'register' %}">
+                <i class="bi bi-person-plus"></i>
+                <span>Register</span>
+            </a>
+        {% endif %}
     </div>
 </header>

@@ -18,7 +18,13 @@
         <a href="#"><i class="bi bi-filetype-pdf"></i> Reports</a>
         <a href="#"><i class="bi bi-cloud-arrow-down"></i> Backup</a>
         <a href="#"><i class="bi bi-bell"></i> Notifications</a>
-        <a href="#"><i class="bi bi-gear"></i> Settings</a>
-        <a href="#"><i class="bi bi-box-arrow-right"></i> Logout</a>
+        {% if request.user.is_authenticated %}
+            <a href="{% url 'profile' %}"><i class="bi bi-person-circle"></i> Profile</a>
+            <a href="#"><i class="bi bi-gear"></i> Settings</a>
+            <a href="{% url 'logout' %}"><i class="bi bi-box-arrow-right"></i> Logout</a>
+        {% else %}
+            <a href="{% url 'login' %}"><i class="bi bi-box-arrow-in-right"></i> Login</a>
+            <a href="{% url 'register' %}"><i class="bi bi-person-plus"></i> Register</a>
+        {% endif %}
     </nav>
 </aside>
