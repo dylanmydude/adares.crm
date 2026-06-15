@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }} | ADARES CRM{% endblock %}
+
+{% block content %}
+<section class="form-panel invoice-form-panel">
+    <p class="eyebrow mb-2">Invoicing</p>
+    <h2 class="h4 mb-3">{{ title }}</h2>
+    <form method="post" novalidate>
+        {% csrf_token %}
+        {% include 'invoicing/partials/form_fields.html' with form=form %}
+
+        <h3 class="h6 mt-4 mb-3">Invoice Items</h3>
+        {{ formset.management_form }}
+        {% if formset.non_form_errors %}
+            <div class="alert alert-danger">{{ formset.non_form_errors }}</div>
+        {% endif %}
+        <div class="invoice-items">
+            {% for item_form in formset %}
+                <div class="invoice-item-row">
+                    {% for hidden in item_form.hidden_fields %}{{ hidden }}{% endfor %}
+                    {% include 'invoicing/partials/form_fields.html' with form=item_form %}
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="d-flex gap-2">
+            <button class="btn btn-primary" type="submit">Save Invoice</button>
+            <a class="btn btn-outline-light" href="{% url 'invoice_list' %}">Cancel</a>
+        </div>
+    </form>
+</section>
+{% endblock %}

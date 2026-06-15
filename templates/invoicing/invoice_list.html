@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}Invoices | ADARES CRM{% endblock %}
+
+{% block content %}
+<section class="page-panel mb-3">
+    <div>
+        <p class="eyebrow mb-2">Invoicing</p>
+        <h2 class="h4 mb-0">Invoices</h2>
+    </div>
+    <a class="btn btn-primary" href="{% url 'invoice_create' %}">
+        <i class="bi bi-plus-circle"></i>
+        <span>Create Invoice</span>
+    </a>
+</section>
+
+<section class="table-panel">
+    <div class="table-responsive">
+        <table class="table adares-table align-middle mb-0">
+            <thead>
+                <tr>
+                    <th>Invoice</th>
+                    <th>Client</th>
+                    <th>Status</th>
+                    <th>Due Date</th>
+                    <th>Total</th>
+                    <th class="text-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for invoice in invoices %}
+                    <tr>
+                        <td><a href="{% url 'invoice_detail' invoice.pk %}">{{ invoice.invoice_number }}</a></td>
+                        <td>{{ invoice.client.name }}</td>
+                        <td>{{ invoice.get_status_display }}</td>
+                        <td>{{ invoice.due_date }}</td>
+                        <td>R{{ invoice.total|floatformat:2 }}</td>
+                        <td class="text-end">
+                            <a class="btn btn-outline-light btn-sm" href="{% url 'invoice_edit' invoice.pk %}">Edit</a>
+                            <form class="d-inline" method="post" action="{% url 'invoice_delete' invoice.pk %}">
+                                {% csrf_token %}
+                                <button class="btn btn-danger btn-sm" type="submit">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="6">No invoices yet.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}

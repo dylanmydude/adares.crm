@@ -209,6 +209,10 @@ body {
     max-width: 720px;
 }
 
+.invoice-form-panel {
+    max-width: 960px;
+}
+
 .form-panel .form-label {
     color: var(--adares-off-white);
     font-weight: 700;
@@ -285,6 +289,24 @@ body {
     list-style: none;
     margin: 0.35rem 0 0;
     padding: 0;
+}
+
+.invoice-items {
+    display: grid;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.invoice-item-row {
+    border: 1px solid rgba(56, 182, 255, 0.16);
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+.adares-table a {
+    color: var(--adares-blue);
+    font-weight: 700;
+    text-decoration: none;
 }
 
 @media (max-width: 991.98px) {
