@@ -215,7 +215,8 @@ body {
 }
 
 .form-panel input,
-.form-panel textarea {
+.form-panel textarea,
+.form-panel select {
     background: #021523;
     border: 1px solid rgba(56, 182, 255, 0.28);
     border-radius: 8px;
@@ -223,7 +224,8 @@ body {
 }
 
 .form-panel input:focus,
-.form-panel textarea:focus {
+.form-panel textarea:focus,
+.form-panel select:focus {
     background: #021523;
     border-color: var(--adares-blue);
     box-shadow: 0 0 0 0.2rem rgba(56, 182, 255, 0.16);
