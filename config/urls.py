@@ -31,6 +31,7 @@ urlpatterns = [
     path('', include('reports.urls')),
     path('', include('backup.urls')),
     path('', include('audit.urls')),
+    path('', include('notifications.urls')),
     path('admin/', admin.site.urls),
 ]
 

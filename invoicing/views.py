@@ -3,6 +3,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_POST
 
 from audit.services import record_action
+from notifications.services import notify_overdue_invoice
 
 from .forms import InvoiceForm, InvoiceItemFormSet
 from .models import Invoice
@@ -36,6 +37,8 @@ def invoice_create(request):
             formset.instance = invoice
             formset.save()
             record_action(request.user, 'create invoice', f'Created invoice {invoice.pk}.')
+            if invoice.status == Invoice.STATUS_OVERDUE:
+                notify_overdue_invoice(invoice)
             return redirect('invoice_detail', pk=invoice.pk)
     else:
         form = InvoiceForm(user=request.user)
@@ -58,6 +61,8 @@ def invoice_edit(request, pk):
             form.save()
             formset.save()
             record_action(request.user, 'update invoice', f'Updated invoice {invoice.pk}.')
+            if invoice.status == Invoice.STATUS_OVERDUE:
+                notify_overdue_invoice(invoice)
             return redirect('invoice_detail', pk=invoice.pk)
     else:
         form = InvoiceForm(instance=invoice, user=request.user)

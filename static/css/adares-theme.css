@@ -77,6 +77,18 @@ body {
     text-decoration: none;
 }
 
+.nav-count {
+    background: var(--adares-blue);
+    border-radius: 999px;
+    color: var(--adares-black);
+    font-size: 0.75rem;
+    font-weight: 800;
+    margin-left: auto;
+    min-width: 1.35rem;
+    padding: 0.1rem 0.4rem;
+    text-align: center;
+}
+
 .sidebar-nav a:hover,
 .sidebar-nav a:focus,
 .sidebar-nav a.active {

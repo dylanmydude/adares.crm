@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_POST
 
 from audit.services import record_action
+from notifications.services import notify_report_generated
 
 from .models import GeneratedReport
 from .services import generate_report
@@ -22,6 +23,7 @@ def report_generate(request, report_type):
     if report_type in valid_types:
         report = generate_report(request.user, report_type)
         record_action(request.user, 'generate report', f'Generated report {report.pk}.')
+        notify_report_generated(report)
     return redirect('report_list')
 
 

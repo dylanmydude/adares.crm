@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_POST
 
 from audit.services import record_action
+from notifications.services import notify_backup_created
 
 from .models import BackupRecord
 from .services import create_database_backup
@@ -20,6 +21,7 @@ def backup_page(request):
 def backup_create(request):
     backup = create_database_backup(request.user)
     record_action(request.user, 'create backup', f'Created backup {backup.pk}.')
+    notify_backup_created(backup)
     return redirect('backup_page')
 
 
