@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block title %}Reports | ADARES CRM{% endblock %}
+
+{% block content %}
+<section class="page-panel mb-3">
+    <div>
+        <p class="eyebrow mb-2">Reports</p>
+        <h2 class="h4 mb-0">PDF Reports</h2>
+    </div>
+</section>
+
+<section class="row g-3 mb-3">
+    <div class="col-md-4">
+        <form class="report-card" method="post" action="{% url 'report_generate' 'income' %}">
+            {% csrf_token %}
+            <h3 class="h6">Income PDF report</h3>
+            <p>Income totals and income record table.</p>
+            <button class="btn btn-primary" type="submit">Generate</button>
+        </form>
+    </div>
+    <div class="col-md-4">
+        <form class="report-card" method="post" action="{% url 'report_generate' 'expense' %}">
+            {% csrf_token %}
+            <h3 class="h6">Expense PDF report</h3>
+            <p>Expense totals and expense record table.</p>
+            <button class="btn btn-primary" type="submit">Generate</button>
+        </form>
+    </div>
+    <div class="col-md-4">
+        <form class="report-card" method="post" action="{% url 'report_generate' 'tax' %}">
+            {% csrf_token %}
+            <h3 class="h6">Tax Summary PDF report</h3>
+            <p>Income, expenses, taxable profit, and estimated tax.</p>
+            <button class="btn btn-primary" type="submit">Generate</button>
+        </form>
+    </div>
+</section>
+
+<section class="table-panel">
+    <div class="table-responsive">
+        <table class="table adares-table align-middle mb-0">
+            <thead>
+                <tr>
+                    <th>Report</th>
+                    <th>Type</th>
+                    <th>Generated</th>
+                    <th class="text-end">Download</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for report in reports %}
+                    <tr>
+                        <td>{{ report.title }}</td>
+                        <td>{{ report.get_report_type_display }}</td>
+                        <td>{{ report.generated_at }}</td>
+                        <td class="text-end">
+                            <a class="btn btn-outline-light btn-sm" href="{% url 'report_download' report.pk %}">Download</a>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="4">No generated reports yet.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}

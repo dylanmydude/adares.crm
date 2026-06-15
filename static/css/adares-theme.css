@@ -310,6 +310,21 @@ body {
     padding: 1rem;
 }
 
+.report-card {
+    background: var(--adares-panel);
+    border: 1px solid var(--adares-border);
+    border-radius: 8px;
+    display: grid;
+    gap: 0.75rem;
+    height: 100%;
+    padding: 1.25rem;
+}
+
+.report-card p {
+    color: rgba(242, 241, 236, 0.68);
+    margin: 0;
+}
+
 .adares-table a {
     color: var(--adares-blue);
     font-weight: 700;

@@ -28,6 +28,7 @@ urlpatterns = [
     path('', include('crm.urls')),
     path('', include('invoicing.urls')),
     path('', include('tax.urls')),
+    path('', include('reports.urls')),
     path('admin/', admin.site.urls),
 ]
 
