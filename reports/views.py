@@ -3,6 +3,8 @@ from django.http import FileResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_POST
 
+from audit.services import record_action
+
 from .models import GeneratedReport
 from .services import generate_report
 
@@ -18,7 +20,8 @@ def report_list(request):
 def report_generate(request, report_type):
     valid_types = {choice[0] for choice in GeneratedReport.REPORT_CHOICES}
     if report_type in valid_types:
-        generate_report(request.user, report_type)
+        report = generate_report(request.user, report_type)
+        record_action(request.user, 'generate report', f'Generated report {report.pk}.')
     return redirect('report_list')
 
 

@@ -3,6 +3,8 @@ from django.http import FileResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_POST
 
+from audit.services import record_action
+
 from .models import BackupRecord
 from .services import create_database_backup
 
@@ -16,7 +18,8 @@ def backup_page(request):
 @login_required
 @require_POST
 def backup_create(request):
-    create_database_backup(request.user)
+    backup = create_database_backup(request.user)
+    record_action(request.user, 'create backup', f'Created backup {backup.pk}.')
     return redirect('backup_page')
 
 

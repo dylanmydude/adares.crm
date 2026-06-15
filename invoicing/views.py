@@ -2,6 +2,8 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_POST
 
+from audit.services import record_action
+
 from .forms import InvoiceForm, InvoiceItemFormSet
 from .models import Invoice
 
@@ -33,6 +35,7 @@ def invoice_create(request):
             invoice.save()
             formset.instance = invoice
             formset.save()
+            record_action(request.user, 'create invoice', f'Created invoice {invoice.pk}.')
             return redirect('invoice_detail', pk=invoice.pk)
     else:
         form = InvoiceForm(user=request.user)
@@ -54,6 +57,7 @@ def invoice_edit(request, pk):
         if form.is_valid() and formset.is_valid():
             form.save()
             formset.save()
+            record_action(request.user, 'update invoice', f'Updated invoice {invoice.pk}.')
             return redirect('invoice_detail', pk=invoice.pk)
     else:
         form = InvoiceForm(instance=invoice, user=request.user)
@@ -70,5 +74,7 @@ def invoice_edit(request, pk):
 @require_POST
 def invoice_delete(request, pk):
     invoice = get_object_or_404(Invoice, pk=pk, user=request.user)
+    description = f'Deleted invoice {invoice.pk}.'
     invoice.delete()
+    record_action(request.user, 'delete invoice', description)
     return redirect('invoice_list')

@@ -2,6 +2,8 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_POST
 
+from audit.services import record_action
+
 from .forms import ExpenseForm, IncomeForm
 from .models import Expense, ExpenseCategory, Income, IncomeSource
 
@@ -21,6 +23,7 @@ def income_create(request):
             income.user = request.user
             income.source = _get_income_source(request.user, form.cleaned_data['source_name'])
             income.save()
+            record_action(request.user, 'create income', f'Created income record {income.pk}.')
             return redirect('income_list')
     else:
         form = IncomeForm()
@@ -37,6 +40,7 @@ def income_edit(request, pk):
             income = form.save(commit=False)
             income.source = _get_income_source(request.user, form.cleaned_data['source_name'])
             income.save()
+            record_action(request.user, 'update income', f'Updated income record {income.pk}.')
             return redirect('income_list')
     else:
         form = IncomeForm(instance=income)
@@ -48,7 +52,9 @@ def income_edit(request, pk):
 @require_POST
 def income_delete(request, pk):
     income = get_object_or_404(Income, pk=pk, user=request.user)
+    description = f'Deleted income record {income.pk}.'
     income.delete()
+    record_action(request.user, 'delete income', description)
     return redirect('income_list')
 
 
@@ -67,6 +73,7 @@ def expense_create(request):
             expense.user = request.user
             expense.category = _get_expense_category(request.user, form.cleaned_data['category_name'])
             expense.save()
+            record_action(request.user, 'create expense', f'Created expense record {expense.pk}.')
             return redirect('expense_list')
     else:
         form = ExpenseForm()
@@ -83,6 +90,7 @@ def expense_edit(request, pk):
             expense = form.save(commit=False)
             expense.category = _get_expense_category(request.user, form.cleaned_data['category_name'])
             expense.save()
+            record_action(request.user, 'update expense', f'Updated expense record {expense.pk}.')
             return redirect('expense_list')
     else:
         form = ExpenseForm(instance=expense)
@@ -94,7 +102,9 @@ def expense_edit(request, pk):
 @require_POST
 def expense_delete(request, pk):
     expense = get_object_or_404(Expense, pk=pk, user=request.user)
+    description = f'Deleted expense record {expense.pk}.'
     expense.delete()
+    record_action(request.user, 'delete expense', description)
     return redirect('expense_list')
 
 

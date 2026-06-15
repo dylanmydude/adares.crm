@@ -3,6 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.shortcuts import redirect, render
 
+from audit.services import record_action
+
 
 def register(request):
     if request.method == 'POST':
@@ -21,7 +23,9 @@ def login_view(request):
     if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
-            login(request, form.get_user())
+            user = form.get_user()
+            login(request, user)
+            record_action(user, 'login', 'User logged in.')
             return redirect('dashboard')
     else:
         form = AuthenticationForm()
@@ -30,6 +34,7 @@ def login_view(request):
 
 
 def logout_view(request):
+    record_action(request.user, 'logout', 'User logged out.')
     logout(request)
     return redirect('login')
 

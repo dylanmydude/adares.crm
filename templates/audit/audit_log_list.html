@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Audit Logs | ADARES CRM{% endblock %}
+
+{% block content %}
+<section class="page-panel mb-3">
+    <div>
+        <p class="eyebrow mb-2">Audit</p>
+        <h2 class="h4 mb-0">Audit Logs</h2>
+    </div>
+</section>
+
+<section class="table-panel">
+    <div class="table-responsive">
+        <table class="table adares-table align-middle mb-0">
+            <thead>
+                <tr>
+                    <th>Time</th>
+                    <th>Action</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for log in audit_logs %}
+                    <tr>
+                        <td>{{ log.created_at }}</td>
+                        <td>{{ log.action }}</td>
+                        <td>{{ log.description|default:'-' }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="3">No audit logs yet.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}
