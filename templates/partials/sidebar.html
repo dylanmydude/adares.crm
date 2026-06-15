@@ -14,7 +14,7 @@
         <a class="{% if request.resolver_match.url_name in 'client_list client_create client_edit' %}active{% endif %}" href="{% url 'client_list' %}"><i class="bi bi-people"></i> Clients</a>
         <a class="{% if request.resolver_match.url_name in 'job_list job_create job_edit' %}active{% endif %}" href="{% url 'job_list' %}"><i class="bi bi-briefcase"></i> Jobs</a>
         <a class="{% if request.resolver_match.url_name in 'invoice_list invoice_create invoice_detail invoice_edit' %}active{% endif %}" href="{% url 'invoice_list' %}"><i class="bi bi-file-earmark-text"></i> Invoices</a>
-        <a href="#"><i class="bi bi-calculator"></i> Tax</a>
+        <a class="{% if request.resolver_match.url_name == 'tax_summary' %}active{% endif %}" href="{% url 'tax_summary' %}"><i class="bi bi-calculator"></i> Tax</a>
         <a href="#"><i class="bi bi-filetype-pdf"></i> Reports</a>
         <a href="#"><i class="bi bi-cloud-arrow-down"></i> Backup</a>
         <a href="#"><i class="bi bi-bell"></i> Notifications</a>

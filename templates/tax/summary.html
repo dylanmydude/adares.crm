@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block title %}Tax Summary | ADARES CRM{% endblock %}
+
+{% block content %}
+<section class="page-panel mb-3">
+    <div>
+        <p class="eyebrow mb-2">Tax</p>
+        <h2 class="h4 mb-0">Tax Summary</h2>
+    </div>
+    <span class="status-pill">Estimate only</span>
+</section>
+
+<section class="alert tax-disclaimer mb-3">
+    This tax summary is only an estimate for planning purposes and is not official tax advice.
+</section>
+
+<section class="row g-3 mb-3">
+    <div class="col-md-6 col-xl-3">
+        <div class="metric-card">
+            <span>Total Income</span>
+            <strong>R{{ calculation.total_income|floatformat:2 }}</strong>
+            <small>Logged-in user records</small>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="metric-card">
+            <span>Total Expenses</span>
+            <strong>R{{ calculation.total_expenses|floatformat:2 }}</strong>
+            <small>Logged-in user records</small>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="metric-card">
+            <span>Taxable Profit</span>
+            <strong>R{{ calculation.taxable_profit|floatformat:2 }}</strong>
+            <small>Income minus expenses</small>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="metric-card">
+            <span>Estimated Tax</span>
+            <strong>R{{ calculation.estimated_tax|floatformat:2 }}</strong>
+            <small>20% of positive profit</small>
+        </div>
+    </div>
+</section>
+
+<section class="table-panel">
+    <div class="table-responsive">
+        <table class="table adares-table align-middle mb-0">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Total Income</th>
+                    <th>Total Expenses</th>
+                    <th>Taxable Profit</th>
+                    <th>Estimated Tax</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in history %}
+                    <tr>
+                        <td>{{ item.created_at }}</td>
+                        <td>R{{ item.total_income|floatformat:2 }}</td>
+                        <td>R{{ item.total_expenses|floatformat:2 }}</td>
+                        <td>R{{ item.taxable_profit|floatformat:2 }}</td>
+                        <td>R{{ item.estimated_tax|floatformat:2 }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="5">No tax calculations yet.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}

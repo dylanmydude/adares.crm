@@ -1,27 +1,18 @@
 from django.contrib.auth.decorators import login_required
-from django.db.models import Sum
 from django.shortcuts import render
 
-from decimal import Decimal
-
-from finance.models import Expense, Income
+from tax.services import calculate_tax_values
 
 
 @login_required
 def dashboard(request):
-    total_income = _sum_amount(Income.objects.filter(user=request.user))
-    total_expenses = _sum_amount(Expense.objects.filter(user=request.user))
-    net_profit = total_income - total_expenses
-    estimated_tax = max(net_profit, Decimal('0.00')) * Decimal('0.20')
+    tax_values = calculate_tax_values(request.user)
+    net_profit = tax_values['taxable_profit']
 
     context = {
-        'total_income': total_income,
-        'total_expenses': total_expenses,
+        'total_income': tax_values['total_income'],
+        'total_expenses': tax_values['total_expenses'],
         'net_profit': net_profit,
-        'estimated_tax': estimated_tax,
+        'estimated_tax': tax_values['estimated_tax'],
     }
     return render(request, 'dashboard.html', context)
-
-
-def _sum_amount(queryset):
-    return queryset.aggregate(total=Sum('amount'))['total'] or Decimal('0.00')
