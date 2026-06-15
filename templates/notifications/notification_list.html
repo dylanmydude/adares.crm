@@ -37,7 +37,7 @@
                                     <button class="btn btn-outline-light btn-sm" type="submit">Mark read</button>
                                 </form>
                             {% endif %}
-                            <form class="d-inline" method="post" action="{% url 'notification_delete' notification.pk %}">
+                            <form class="d-inline" method="post" action="{% url 'notification_delete' notification.pk %}" onsubmit="return confirm('Delete this notification?');">
                                 {% csrf_token %}
                                 <button class="btn btn-danger btn-sm" type="submit">Delete</button>
                             </form>

@@ -7,10 +7,10 @@
     <div class="row align-items-center g-3">
         <div class="col-lg-8">
             <h2 class="h4 mb-2">Business snapshot</h2>
-            <p class="mb-0">A starting dashboard shell for tracking gig income, expenses, profit, and estimated tax.</p>
+            <p class="mb-0">Track current totals and recent activity across income, expenses, invoices, and notifications.</p>
         </div>
         <div class="col-lg-4 text-lg-end">
-            <span class="status-pill">Frontend shell</span>
+            <span class="status-pill">Ready for demonstration</span>
         </div>
     </div>
 </section>
@@ -42,6 +42,57 @@
             <span>Estimated Tax</span>
             <strong>R{{ estimated_tax|floatformat:2 }}</strong>
             <small>Placeholder at 20% of profit</small>
+        </div>
+    </div>
+</section>
+
+<section class="row g-3 mt-1">
+    <div class="col-xl-6">
+        <div class="recent-panel">
+            <h3 class="h6">Recent Income</h3>
+            <ul class="recent-list">
+                {% for income in recent_income %}
+                    <li><span>{{ income.source.name }}</span><strong>R{{ income.amount|floatformat:2 }}</strong></li>
+                {% empty %}
+                    <li class="empty-state">No recent income.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="col-xl-6">
+        <div class="recent-panel">
+            <h3 class="h6">Recent Expenses</h3>
+            <ul class="recent-list">
+                {% for expense in recent_expenses %}
+                    <li><span>{{ expense.category.name }}</span><strong>R{{ expense.amount|floatformat:2 }}</strong></li>
+                {% empty %}
+                    <li class="empty-state">No recent expenses.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="col-xl-6">
+        <div class="recent-panel">
+            <h3 class="h6">Recent Invoices</h3>
+            <ul class="recent-list">
+                {% for invoice in recent_invoices %}
+                    <li><span>{{ invoice.invoice_number }} - {{ invoice.client.name }}</span><strong>R{{ invoice.total|floatformat:2 }}</strong></li>
+                {% empty %}
+                    <li class="empty-state">No recent invoices.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="col-xl-6">
+        <div class="recent-panel">
+            <h3 class="h6">Unread Notifications</h3>
+            <ul class="recent-list">
+                {% for notification in unread_notifications %}
+                    <li><span>{{ notification.title }}</span><strong>{{ notification.created_at|date:"M d" }}</strong></li>
+                {% empty %}
+                    <li class="empty-state">No unread notifications.</li>
+                {% endfor %}
+            </ul>
         </div>
     </div>
 </section>

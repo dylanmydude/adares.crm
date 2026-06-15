@@ -35,7 +35,7 @@
                         <td>{{ income.description|default:'-' }}</td>
                         <td class="text-end">
                             <a class="btn btn-outline-light btn-sm" href="{% url 'income_edit' income.pk %}">Edit</a>
-                            <form class="d-inline" method="post" action="{% url 'income_delete' income.pk %}">
+                            <form class="d-inline" method="post" action="{% url 'income_delete' income.pk %}" onsubmit="return confirm('Delete this income record?');">
                                 {% csrf_token %}
                                 <button class="btn btn-danger btn-sm" type="submit">Delete</button>
                             </form>

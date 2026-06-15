@@ -35,7 +35,7 @@
                         <td>R{{ job.value|floatformat:2 }}</td>
                         <td class="text-end">
                             <a class="btn btn-outline-light btn-sm" href="{% url 'job_edit' job.pk %}">Edit</a>
-                            <form class="d-inline" method="post" action="{% url 'job_delete' job.pk %}">
+                            <form class="d-inline" method="post" action="{% url 'job_delete' job.pk %}" onsubmit="return confirm('Delete this job?');">
                                 {% csrf_token %}
                                 <button class="btn btn-danger btn-sm" type="submit">Delete</button>
                             </form>

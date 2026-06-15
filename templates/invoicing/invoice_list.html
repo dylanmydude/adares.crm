@@ -37,7 +37,7 @@
                         <td>R{{ invoice.total|floatformat:2 }}</td>
                         <td class="text-end">
                             <a class="btn btn-outline-light btn-sm" href="{% url 'invoice_edit' invoice.pk %}">Edit</a>
-                            <form class="d-inline" method="post" action="{% url 'invoice_delete' invoice.pk %}">
+                            <form class="d-inline" method="post" action="{% url 'invoice_delete' invoice.pk %}" onsubmit="return confirm('Delete this invoice and its items?');">
                                 {% csrf_token %}
                                 <button class="btn btn-danger btn-sm" type="submit">Delete</button>
                             </form>

@@ -35,7 +35,7 @@
                         <td>{{ expense.description|default:'-' }}</td>
                         <td class="text-end">
                             <a class="btn btn-outline-light btn-sm" href="{% url 'expense_edit' expense.pk %}">Edit</a>
-                            <form class="d-inline" method="post" action="{% url 'expense_delete' expense.pk %}">
+                            <form class="d-inline" method="post" action="{% url 'expense_delete' expense.pk %}" onsubmit="return confirm('Delete this expense record?');">
                                 {% csrf_token %}
                                 <button class="btn btn-danger btn-sm" type="submit">Delete</button>
                             </form>

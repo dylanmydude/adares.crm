@@ -35,7 +35,7 @@
                         <td>{{ client.company_name|default:'-' }}</td>
                         <td class="text-end">
                             <a class="btn btn-outline-light btn-sm" href="{% url 'client_edit' client.pk %}">Edit</a>
-                            <form class="d-inline" method="post" action="{% url 'client_delete' client.pk %}">
+                            <form class="d-inline" method="post" action="{% url 'client_delete' client.pk %}" onsubmit="return confirm('Delete this client and linked jobs?');">
                                 {% csrf_token %}
                                 <button class="btn btn-danger btn-sm" type="submit">Delete</button>
                             </form>

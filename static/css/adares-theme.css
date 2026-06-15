@@ -40,16 +40,12 @@ body {
     text-decoration: none;
 }
 
-.brand-symbol {
-    align-items: center;
-    background: var(--adares-blue);
+.brand-logo {
     border-radius: 8px;
-    color: var(--adares-black);
-    display: inline-flex;
-    font-weight: 800;
-    height: 42px;
-    justify-content: center;
-    width: 42px;
+    flex: 0 0 auto;
+    height: 44px;
+    object-fit: contain;
+    width: 44px;
 }
 
 .brand-mark strong,
@@ -145,6 +141,7 @@ body {
 
 .dashboard-intro,
 .metric-card,
+.recent-panel,
 .page-panel,
 .table-panel,
 .form-panel {
@@ -204,6 +201,47 @@ body {
 .metric-card strong {
     color: var(--adares-off-white);
     font-size: 1.9rem;
+}
+
+.recent-panel {
+    height: 100%;
+    padding: 1.25rem;
+}
+
+.recent-panel h3 {
+    color: var(--adares-blue);
+    margin-bottom: 0.85rem;
+}
+
+.recent-list {
+    display: grid;
+    gap: 0.65rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.recent-list li {
+    align-items: center;
+    border-bottom: 1px solid rgba(56, 182, 255, 0.12);
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    padding-bottom: 0.65rem;
+}
+
+.recent-list li:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+}
+
+.recent-list strong {
+    color: var(--adares-off-white);
+    white-space: nowrap;
+}
+
+.empty-state {
+    color: rgba(242, 241, 236, 0.68);
 }
 
 .table-panel {
