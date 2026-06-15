@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}Backup | ADARES CRM{% endblock %}
+
+{% block content %}
+<section class="page-panel mb-3">
+    <div>
+        <p class="eyebrow mb-2">Backup</p>
+        <h2 class="h4 mb-0">Database Backups</h2>
+    </div>
+    <form method="post" action="{% url 'backup_create' %}">
+        {% csrf_token %}
+        <button class="btn btn-primary" type="submit">
+            <i class="bi bi-cloud-arrow-down"></i>
+            <span>Create Backup</span>
+        </button>
+    </form>
+</section>
+
+<section class="dashboard-intro mb-3">
+    <p class="mb-0">Create downloadable database backup files for safekeeping. Backup files are stored under <strong>media/backups/</strong>.</p>
+</section>
+
+<section class="table-panel">
+    <div class="table-responsive">
+        <table class="table adares-table align-middle mb-0">
+            <thead>
+                <tr>
+                    <th>File</th>
+                    <th>Size</th>
+                    <th>Created</th>
+                    <th class="text-end">Download</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for backup in backups %}
+                    <tr>
+                        <td>{{ backup.file_name }}</td>
+                        <td>{{ backup.file_size }} bytes</td>
+                        <td>{{ backup.created_at }}</td>
+                        <td class="text-end">
+                            <a class="btn btn-outline-light btn-sm" href="{% url 'backup_download' backup.pk %}">Download</a>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="4">No backups yet.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}

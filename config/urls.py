@@ -29,6 +29,7 @@ urlpatterns = [
     path('', include('invoicing.urls')),
     path('', include('tax.urls')),
     path('', include('reports.urls')),
+    path('', include('backup.urls')),
     path('admin/', admin.site.urls),
 ]
 
