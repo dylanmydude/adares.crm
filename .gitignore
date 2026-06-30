@@ -12,9 +12,3 @@ media/invoices/
 .DS_Store
 .idea/
 .vscode/
-
-
-/AGENTS.md
-/.agents/
-/.codex/
-/docs/codex/

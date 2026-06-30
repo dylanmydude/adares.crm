@@ -72,10 +72,6 @@ Run tests:
 - Audit: administrator-only audit history with filters
 - Notifications: unread/read notification workflow
 
-## Project Notes
-
-This project uses document-driven development. The `/docs` folder is the source of truth for module scope, build order, and implementation rules.
-
 ## Email Configuration
 
 Local development uses Django's console email backend by default. SMTP can be configured with environment variables:
