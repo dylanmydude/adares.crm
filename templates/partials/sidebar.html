@@ -18,7 +18,10 @@
         <a class="{% if request.resolver_match.url_name == 'tax_summary' %}active{% endif %}" href="{% url 'tax_summary' %}"><i class="bi bi-calculator"></i> Tax</a>
         <a class="{% if request.resolver_match.url_name in 'report_list report_generate report_download' %}active{% endif %}" href="{% url 'report_list' %}"><i class="bi bi-filetype-pdf"></i> Reports</a>
         <a class="{% if request.resolver_match.url_name in 'backup_page backup_create backup_download' %}active{% endif %}" href="{% url 'backup_page' %}"><i class="bi bi-cloud-arrow-down"></i> Backup</a>
-        <a class="{% if request.resolver_match.url_name == 'audit_log_list' %}active{% endif %}" href="{% url 'audit_log_list' %}"><i class="bi bi-list-check"></i> Audit Logs</a>
+        {% if request.user.is_staff or request.user.is_superuser %}
+            <a class="{% if request.resolver_match.url_name in 'management_user_list management_user_add management_user_detail management_user_edit management_user_delete' %}active{% endif %}" href="{% url 'management_user_list' %}"><i class="bi bi-person-gear"></i> User Management</a>
+            <a class="{% if request.resolver_match.url_name == 'audit_log_list' %}active{% endif %}" href="{% url 'audit_log_list' %}"><i class="bi bi-list-check"></i> Audit Logs</a>
+        {% endif %}
         <a class="{% if request.resolver_match.url_name in 'notification_list notification_mark_read notification_delete' %}active{% endif %}" href="{% url 'notification_list' %}">
             <i class="bi bi-bell"></i>
             Notifications
@@ -28,7 +31,7 @@
         </a>
         {% if request.user.is_authenticated %}
             <a href="{% url 'profile' %}"><i class="bi bi-person-circle"></i> Profile</a>
-            <a href="#"><i class="bi bi-gear"></i> Settings</a>
+            <a class="{% if request.resolver_match.url_name == 'account_settings' %}active{% endif %}" href="{% url 'account_settings' %}"><i class="bi bi-gear"></i> Settings</a>
             <a href="{% url 'logout' %}"><i class="bi bi-box-arrow-right"></i> Logout</a>
         {% else %}
             <a href="{% url 'login' %}"><i class="bi bi-box-arrow-in-right"></i> Login</a>

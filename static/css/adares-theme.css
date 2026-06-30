@@ -284,6 +284,14 @@ body {
     color: var(--adares-off-white);
 }
 
+.form-panel input[type="checkbox"] {
+    width: auto;
+}
+
+.form-panel .form-check-label {
+    color: var(--adares-off-white);
+}
+
 .form-panel input:focus,
 .form-panel textarea:focus,
 .form-panel select:focus {

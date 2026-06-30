@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Delete User | ADARES CRM{% endblock %}
+
+{% block content %}
+<section class="form-panel">
+    <p class="eyebrow mb-2">Management</p>
+    <h2 class="h4 mb-3">Delete {{ managed_user.username }}</h2>
+    <p>This action cannot be undone.</p>
+    <form method="post">
+        {% csrf_token %}
+        <button class="btn btn-danger" type="submit">Delete User</button>
+        <a class="btn btn-outline-light" href="{% url 'management_user_detail' managed_user.pk %}">Cancel</a>
+    </form>
+</section>
+{% endblock %}

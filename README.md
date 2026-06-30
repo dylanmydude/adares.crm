@@ -36,6 +36,22 @@ Start the development server:
 ./venv/bin/python manage.py runserver
 ```
 
+## Cloudflare Tunnel Demo
+
+For a temporary public demo URL, start Django in one terminal:
+
+```bash
+./venv/bin/python manage.py runserver 127.0.0.1:8000
+```
+
+In a second terminal, start a Cloudflare Tunnel to the local server:
+
+```bash
+cloudflared tunnel --url http://127.0.0.1:8000
+```
+
+Open the generated `https://*.trycloudflare.com` URL in a browser. Both terminals must stay open while the demo is live.
+
 Run tests:
 
 ```bash
@@ -44,17 +60,33 @@ Run tests:
 
 ## Feature Summary
 
-- Accounts: register, log in, log out, and profile placeholder
+- Accounts: register, email verification, log in, log out, editable profile, and user settings
+- Management: administrator-only user management for staff and superusers
 - Dashboard: totals, estimated tax, recent records, and unread notifications
 - Finance: income and expense CRUD
 - CRM: clients and jobs
 - Invoicing: invoices, invoice items, statuses, and totals
-- Tax: estimated tax calculations and history
+- Tax: South African progressive individual income tax estimates and history
 - Reports: income, expense, and tax summary PDF generation
 - Backup: database backup creation and download
-- Audit: user action history
+- Audit: administrator-only audit history with filters
 - Notifications: unread/read notification workflow
 
 ## Project Notes
 
 This project uses document-driven development. The `/docs` folder is the source of truth for module scope, build order, and implementation rules.
+
+## Email Configuration
+
+Local development uses Django's console email backend by default. SMTP can be configured with environment variables:
+
+- `EMAIL_BACKEND`
+- `EMAIL_HOST`
+- `EMAIL_PORT`
+- `EMAIL_HOST_USER`
+- `EMAIL_HOST_PASSWORD`
+- `EMAIL_USE_TLS`
+- `EMAIL_USE_SSL`
+- `DEFAULT_FROM_EMAIL`
+
+Do not commit email credentials.

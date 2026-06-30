@@ -22,13 +22,14 @@ class IncomeForm(BaseFinanceForm):
         model = Income
         fields = ['source_name', 'amount', 'date_received', 'description']
         widgets = {
-            'date_received': forms.DateInput(attrs={'type': 'date'}),
+            'date_received': forms.DateInput(attrs={'type': 'date'}, format='%Y-%m-%d'),
             'description': forms.Textarea(attrs={'rows': 3}),
         }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self._apply_widget_classes()
+        self.fields['date_received'].input_formats = ['%Y-%m-%d']
         if self.instance.pk:
             self.fields['source_name'].initial = self.instance.source.name
 
@@ -44,12 +45,13 @@ class ExpenseForm(BaseFinanceForm):
         model = Expense
         fields = ['category_name', 'amount', 'date_paid', 'description']
         widgets = {
-            'date_paid': forms.DateInput(attrs={'type': 'date'}),
+            'date_paid': forms.DateInput(attrs={'type': 'date'}, format='%Y-%m-%d'),
             'description': forms.Textarea(attrs={'rows': 3}),
         }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self._apply_widget_classes()
+        self.fields['date_paid'].input_formats = ['%Y-%m-%d']
         if self.instance.pk:
             self.fields['category_name'].initial = self.instance.category.name

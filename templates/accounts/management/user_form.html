@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }} | ADARES CRM{% endblock %}
+
+{% block content %}
+<section class="form-panel">
+    <p class="eyebrow mb-2">Management</p>
+    <h2 class="h4 mb-3">{{ title }}</h2>
+    <form method="post" novalidate>
+        {% csrf_token %}
+        {% include 'accounts/partials/profile_form_fields.html' %}
+        <button class="btn btn-primary" type="submit">Save User</button>
+        <a class="btn btn-outline-light" href="{% url 'management_user_list' %}">Cancel</a>
+    </form>
+</section>
+{% endblock %}

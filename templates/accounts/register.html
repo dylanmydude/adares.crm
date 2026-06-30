@@ -16,6 +16,11 @@
                 {% include 'accounts/partials/field_errors.html' with field=form.username %}
             </div>
             <div class="mb-3">
+                <label class="form-label" for="{{ form.email.id_for_label }}">Email</label>
+                {{ form.email }}
+                {% include 'accounts/partials/field_errors.html' with field=form.email %}
+            </div>
+            <div class="mb-3">
                 <label class="form-label" for="{{ form.password1.id_for_label }}">Password</label>
                 {{ form.password1 }}
                 {% include 'accounts/partials/field_errors.html' with field=form.password1 %}
@@ -28,6 +33,7 @@
             <button class="btn btn-primary w-100" type="submit">Create account</button>
         </form>
         <p class="auth-switch mb-0 mt-3">Already registered? <a href="{% url 'login' %}">Log in</a>.</p>
+        <p class="auth-switch mb-0 mt-2">Need another verification email? <a href="{% url 'resend_verification' %}">Resend verification</a>.</p>
     </div>
 </section>
 {% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}User Detail | ADARES CRM{% endblock %}
+
+{% block content %}
+<section class="page-panel mb-3">
+    <div>
+        <p class="eyebrow mb-2">Management</p>
+        <h2 class="h4 mb-0">{{ managed_user.username }}</h2>
+    </div>
+    <div class="d-flex gap-2">
+        <a class="btn btn-outline-light" href="{% url 'management_user_list' %}">Back</a>
+        <a class="btn btn-primary" href="{% url 'management_user_edit' managed_user.pk %}">Edit</a>
+        {% if managed_user.pk != request.user.pk %}
+            <a class="btn btn-outline-danger" href="{% url 'management_user_delete' managed_user.pk %}">Delete</a>
+        {% endif %}
+    </div>
+</section>
+
+<section class="dashboard-intro">
+    <div class="row g-3">
+        <div class="col-md-4"><strong>Email</strong><br>{{ managed_user.email|default:'-' }}</div>
+        <div class="col-md-4"><strong>Name</strong><br>{{ managed_user.get_full_name|default:'-' }}</div>
+        <div class="col-md-2"><strong>Active</strong><br>{{ managed_user.is_active|yesno:'Yes,No' }}</div>
+        <div class="col-md-2"><strong>Staff</strong><br>{{ managed_user.is_staff|yesno:'Yes,No' }}</div>
+    </div>
+</section>
+{% endblock %}

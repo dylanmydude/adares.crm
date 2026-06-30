@@ -105,6 +105,20 @@ class ReportsTests(TestCase):
         self.assertTrue(GeneratedReport.objects.filter(title='Expense report').exists())
         self.assertTrue(GeneratedReport.objects.filter(title='Tax summary report').exists())
 
+    def test_tax_pdf_contains_progressive_tax_values(self):
+        self.client.force_login(self.user)
+
+        self.client.post(reverse('report_generate', args=['tax']))
+
+        report = GeneratedReport.objects.get(user=self.user, report_type=GeneratedReport.REPORT_TAX)
+        with report.file.open('rb') as pdf_file:
+            content = pdf_file.read()
+        self.assertIn(b'Tax year: 2027', content)
+        self.assertIn(b'Taxable income: R680.00', content)
+        self.assertIn(b'Bracket calculation:', content)
+        self.assertIn(b'Rebate: R17820.00', content)
+        self.assertIn(b'Final estimated tax: R0.00', content)
+
     def test_reports_page_requires_login(self):
         response = self.client.get(reverse('report_list'))
 

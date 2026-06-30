@@ -10,12 +10,42 @@
     </div>
 </section>
 
+<section class="form-panel mb-3">
+    <form method="get" class="row g-2 align-items-end">
+        <div class="col-md-3">
+            <label class="form-label" for="audit-user">User</label>
+            <select class="form-control" id="audit-user" name="user">
+                <option value="">All users</option>
+                {% for item in users %}
+                    <option value="{{ item.user_id }}" {% if filters.user == item.user_id|stringformat:'s' %}selected{% endif %}>{{ item.user__username }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label class="form-label" for="audit-action">Action</label>
+            <input class="form-control" id="audit-action" name="action" value="{{ filters.action }}">
+        </div>
+        <div class="col-md-2">
+            <label class="form-label" for="audit-start-date">Start date</label>
+            <input class="form-control" type="date" id="audit-start-date" name="start_date" value="{{ filters.start_date }}">
+        </div>
+        <div class="col-md-2">
+            <label class="form-label" for="audit-end-date">End date</label>
+            <input class="form-control" type="date" id="audit-end-date" name="end_date" value="{{ filters.end_date }}">
+        </div>
+        <div class="col-md-2">
+            <button class="btn btn-outline-light w-100" type="submit">Filter</button>
+        </div>
+    </form>
+</section>
+
 <section class="table-panel">
     <div class="table-responsive">
         <table class="table adares-table align-middle mb-0">
             <thead>
                 <tr>
                     <th>Time</th>
+                    <th>User</th>
                     <th>Action</th>
                     <th>Description</th>
                 </tr>
@@ -24,12 +54,13 @@
                 {% for log in audit_logs %}
                     <tr>
                         <td>{{ log.created_at }}</td>
+                        <td>{{ log.user.username }}</td>
                         <td>{{ log.action }}</td>
                         <td>{{ log.description|default:'-' }}</td>
                     </tr>
                 {% empty %}
                     <tr>
-                        <td colspan="3">No audit logs yet.</td>
+                        <td colspan="4">No audit logs yet.</td>
                     </tr>
                 {% endfor %}
             </tbody>

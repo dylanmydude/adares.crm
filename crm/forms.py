@@ -20,8 +20,10 @@ class ClientForm(forms.ModelForm):
 class JobForm(forms.ModelForm):
     class Meta:
         model = Job
-        fields = ['client', 'title', 'status', 'value', 'notes']
+        fields = ['client', 'title', 'status', 'start_date', 'due_date', 'value', 'notes']
         widgets = {
+            'start_date': forms.DateInput(attrs={'type': 'date'}, format='%Y-%m-%d'),
+            'due_date': forms.DateInput(attrs={'type': 'date'}, format='%Y-%m-%d'),
             'notes': forms.Textarea(attrs={'rows': 3}),
         }
 
@@ -29,5 +31,7 @@ class JobForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         if user is not None:
             self.fields['client'].queryset = Client.objects.filter(user=user)
+        self.fields['start_date'].input_formats = ['%Y-%m-%d']
+        self.fields['due_date'].input_formats = ['%Y-%m-%d']
         for field in self.fields.values():
             field.widget.attrs.setdefault('class', 'form-control')

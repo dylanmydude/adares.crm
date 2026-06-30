@@ -90,19 +90,32 @@ class FinalNavigationAndAccessTests(TestCase):
             reverse('tax_summary'),
             reverse('report_list'),
             reverse('backup_page'),
-            reverse('audit_log_list'),
             reverse('notification_list'),
             reverse('profile'),
+            reverse('account_settings'),
             reverse('logout'),
         ]
         for link in expected_links:
             with self.subTest(link=link):
                 self.assertContains(response, f'href="{link}"')
+        self.assertNotContains(response, f'href="{reverse("audit_log_list")}"')
+        self.assertNotContains(response, f'href="{reverse("management_user_list")}"')
+
+    def test_admin_navigation_links_render_for_staff_user(self):
+        self.user.is_staff = True
+        self.user.save(update_fields=['is_staff'])
+        self.client.force_login(self.user)
+
+        response = self.client.get(reverse('dashboard'))
+
+        self.assertContains(response, f'href="{reverse("audit_log_list")}"')
+        self.assertContains(response, f'href="{reverse("management_user_list")}"')
 
     def test_protected_pages_redirect_to_login(self):
         protected_urls = [
             reverse('dashboard'),
             reverse('profile'),
+            reverse('account_settings'),
             reverse('income_list'),
             reverse('income_create'),
             reverse('expense_list'),
@@ -116,7 +129,6 @@ class FinalNavigationAndAccessTests(TestCase):
             reverse('tax_summary'),
             reverse('report_list'),
             reverse('backup_page'),
-            reverse('audit_log_list'),
             reverse('notification_list'),
         ]
 
@@ -130,6 +142,7 @@ class FinalNavigationAndAccessTests(TestCase):
         main_pages = [
             reverse('dashboard'),
             reverse('profile'),
+            reverse('account_settings'),
             reverse('income_list'),
             reverse('expense_list'),
             reverse('client_list'),
@@ -138,11 +151,20 @@ class FinalNavigationAndAccessTests(TestCase):
             reverse('tax_summary'),
             reverse('report_list'),
             reverse('backup_page'),
-            reverse('audit_log_list'),
             reverse('notification_list'),
         ]
 
         for url in main_pages:
+            with self.subTest(url=url):
+                response = self.client.get(url)
+                self.assertEqual(response.status_code, 200)
+
+    def test_admin_pages_load_for_staff_user(self):
+        self.user.is_staff = True
+        self.user.save(update_fields=['is_staff'])
+        self.client.force_login(self.user)
+
+        for url in [reverse('audit_log_list'), reverse('management_user_list')]:
             with self.subTest(url=url):
                 response = self.client.get(url)
                 self.assertEqual(response.status_code, 200)

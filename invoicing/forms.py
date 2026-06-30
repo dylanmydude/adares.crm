@@ -11,8 +11,8 @@ class InvoiceForm(forms.ModelForm):
         model = Invoice
         fields = ['client', 'invoice_number', 'status', 'issue_date', 'due_date', 'notes']
         widgets = {
-            'issue_date': forms.DateInput(attrs={'type': 'date'}),
-            'due_date': forms.DateInput(attrs={'type': 'date'}),
+            'issue_date': forms.DateInput(attrs={'type': 'date'}, format='%Y-%m-%d'),
+            'due_date': forms.DateInput(attrs={'type': 'date'}, format='%Y-%m-%d'),
             'notes': forms.Textarea(attrs={'rows': 3}),
         }
 
@@ -20,6 +20,8 @@ class InvoiceForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         if user is not None:
             self.fields['client'].queryset = Client.objects.filter(user=user)
+        self.fields['issue_date'].input_formats = ['%Y-%m-%d']
+        self.fields['due_date'].input_formats = ['%Y-%m-%d']
         for field in self.fields.values():
             field.widget.attrs.setdefault('class', 'form-control')
 

@@ -38,6 +38,8 @@ class Job(models.Model):
     client = models.ForeignKey(Client, on_delete=models.CASCADE, related_name='jobs')
     title = models.CharField(max_length=150)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default=STATUS_QUOTED)
+    start_date = models.DateField(null=True, blank=True)
+    due_date = models.DateField(null=True, blank=True)
     value = models.DecimalField(
         max_digits=12,
         decimal_places=2,

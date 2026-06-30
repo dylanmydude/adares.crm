@@ -12,3 +12,13 @@ media/invoices/
 .DS_Store
 .idea/
 .vscode/
+
+# AI agent and assistant working files
+AGENTS.md
+CLAUDE.md
+GEMINI.md
+.agents/
+.codex/
+.cursor/
+.windsurf/
+docs/codex/

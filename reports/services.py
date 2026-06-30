@@ -64,10 +64,14 @@ def _report_content(user, report_type):
         values = calculate_tax_values(user)
         lines = header + [
             'Tax summary report',
-            f'Total income: R{values["total_income"]:.2f}',
-            f'Total expenses: R{values["total_expenses"]:.2f}',
-            f'Taxable profit: R{values["taxable_profit"]:.2f}',
-            f'Estimated tax: R{values["estimated_tax"]:.2f}',
+            f'Tax year: {values["tax_year"]}',
+            f'Gross income: R{values["gross_income"]:.2f}',
+            f'Deductible expenses: R{values["deductible_expenses"]:.2f}',
+            f'Taxable income: R{values["taxable_income"]:.2f}',
+            f'Bracket calculation: {values["bracket_description"]}',
+            f'Tax before rebates: R{values["tax_before_rebates"]:.2f}',
+            f'Rebate: R{values["rebate_amount"]:.2f}',
+            f'Final estimated tax: R{values["estimated_tax"]:.2f}',
             '',
             'This is an estimate only and is not official tax advice.',
         ]

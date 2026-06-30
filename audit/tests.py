@@ -20,6 +20,11 @@ class AuditTests(TestCase):
             username='other_audit_user',
             password='StrongPass123!',
         )
+        self.staff_user = user_model.objects.create_user(
+            username='staff_audit_user',
+            password='StrongPass123!',
+            is_staff=True,
+        )
 
     def test_record_action_creates_audit_log(self):
         log = record_action(self.user, 'create income', 'Created income record.')
@@ -35,10 +40,17 @@ class AuditTests(TestCase):
         self.assertIsNone(log)
         self.assertEqual(AuditLog.objects.count(), 0)
 
-    def test_audit_page_shows_logged_in_user_history(self):
+    def test_normal_users_cannot_access_audit_logs(self):
+        self.client.force_login(self.user)
+
+        response = self.client.get(reverse('audit_log_list'))
+
+        self.assertEqual(response.status_code, 403)
+
+    def test_staff_user_can_view_all_audit_logs(self):
         AuditLog.objects.create(user=self.user, action='create income', description='Mine')
         AuditLog.objects.create(user=self.other_user, action='create expense', description='Other')
-        self.client.force_login(self.user)
+        self.client.force_login(self.staff_user)
 
         response = self.client.get(reverse('audit_log_list'))
 
@@ -46,8 +58,19 @@ class AuditTests(TestCase):
         self.assertContains(response, 'Audit Logs')
         self.assertContains(response, 'create income')
         self.assertContains(response, 'Mine')
-        self.assertNotContains(response, 'create expense')
-        self.assertNotContains(response, 'Other')
+        self.assertContains(response, 'create expense')
+        self.assertContains(response, 'Other')
+
+    def test_audit_filters_work(self):
+        AuditLog.objects.create(user=self.user, action='create income', description='Mine')
+        AuditLog.objects.create(user=self.other_user, action='delete expense', description='Other')
+        self.client.force_login(self.staff_user)
+
+        response = self.client.get(reverse('audit_log_list'), {'user': self.user.pk, 'action': 'create'})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'create income')
+        self.assertNotContains(response, 'delete expense')
 
     def test_audit_page_requires_login(self):
         response = self.client.get(reverse('audit_log_list'))

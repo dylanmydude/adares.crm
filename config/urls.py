@@ -24,6 +24,7 @@ from .views import dashboard
 urlpatterns = [
     path('', dashboard, name='dashboard'),
     path('accounts/', include('accounts.urls')),
+    path('management/users/', include('accounts.management_urls')),
     path('', include('finance.urls')),
     path('', include('crm.urls')),
     path('', include('invoicing.urls')),

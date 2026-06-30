@@ -179,5 +179,5 @@ class FinanceTests(TestCase):
         self.assertContains(response, 'R300.00')
         self.assertContains(response, 'R60.00')
         self.assertContains(response, 'R240.00')
-        self.assertContains(response, 'R48.00')
+        self.assertContains(response, 'R0.00')
         self.assertNotContains(response, 'R900.00')
